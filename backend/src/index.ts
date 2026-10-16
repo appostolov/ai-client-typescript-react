@@ -1,17 +1,12 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import dotenv from 'dotenv';
+var chat = require( "./route/chat" );
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+app.use( express.json() );
 
-app.use(express.json());
+app.use( "/chat", chat );
 
-app.get('/api/health', (req: Request, res: Response) => {
-  res.json({ status: 'ok', message: 'Backend is running smoothly!' });
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+app.listen( process.env.PORT || 5000 );
