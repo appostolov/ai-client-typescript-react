@@ -89,3 +89,10 @@ app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
 ```
+
+# Boot up and Run the Environment
+go to the root `cd ..`
+run `npm run dev`
+* I needed to install express and nodemon in the backend folder again, but it is working now
+
+
