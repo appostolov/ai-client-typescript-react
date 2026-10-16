@@ -95,4 +95,8 @@ go to the root `cd ..`
 run `npm run dev`
 * I needed to install express and nodemon in the backend folder again, but it is working now
 
-
+# Built & Run
+1. Clone the repo `git clone https://github.com/appostolov/ai-client-typescript-react.git`
+2. Enter the root directory `cd ai-client-typescript-react`
+3. Install dependencies `npm install`
+4. Run the app `npm run dev`
