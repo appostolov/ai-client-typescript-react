@@ -1,0 +1,1 @@
+I will first update .gitignore to prevent any files start being tracked
