@@ -50,7 +50,7 @@ export const ChatSchema = z.object({
 
 export type Chat = z.infer<typeof ChatSchema>;
 
-export const ChatMapSchema = z.record(z.string(), ChatSchema);
+export const ChatMapSchema = z.record(z.string().startsWith('gen-'), ChatSchema);
 
 export type ChatMap = {
   [id: string]: Chat;
