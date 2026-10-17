@@ -21,5 +21,23 @@ module.exports = {
             result[id] = data[id];
         }
         response.status(200).json(result);
+    },
+
+    delete: async function( request: Request, response: Response ){
+
+        const data: ChatMap = await Helper.read();
+
+        if( !data[request.body.id] ) throw {
+            code: 404,
+            body: {
+                message: "Item not found"
+            }
+        };
+
+        delete data[request.body.id]; 
+
+        await Helper.write();
+        
+        response.status(200).send();
     }
 };

@@ -7,4 +7,9 @@ router.post(
     middleware.select
 );
 
+router.post(
+    '/delete',
+    middleware.delete
+);
+
 module.exports = router;

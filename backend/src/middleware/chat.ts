@@ -25,15 +25,57 @@ module.exports = {
         }
 
         try{
-            await controller.select( req );
+            await controller.select( req, res );
+        }
+        catch( ex ){
+            const err = Object.assign(
+                {},
+                {
+                    code: 500,
+                    body: {
+                        message: "System error"
+                    }
+                },
+                ex
+            );
+            next( err );
+            return;
+        }
+    },
+
+    delete: async function( req: Request, res: Response, next: Function ){
+
+        try{
+            const schema = z.object({
+                id: z.string().startsWith('gen-').optional()
+            });
+            schema.parse( req.body );
         }
         catch( ex ){
             next({
-                code: 500,
+                code: 400,
                 body: {
-                    message: "System error"
+                    message: "Invalid user input"
                 }
             });
+            return;
+        }
+
+        try{
+            await controller.delete( req, res );
+        }
+        catch( ex ){
+            const err = Object.assign(
+                {},
+                {
+                    code: 500,
+                    body: {
+                        message: "System error"
+                    }
+                },
+                ex
+            );
+            next( err );
             return;
         }
     }
