@@ -33,3 +33,9 @@ export const ChatSchema = z.object({
 });
 
 export type Chat = z.infer<typeof ChatSchema>;
+
+export const ChatMapSchema = z.record(z.string(), ChatSchema);
+
+export type ChatMap = {
+  [id: Chat["id"]]: Chat;
+};
