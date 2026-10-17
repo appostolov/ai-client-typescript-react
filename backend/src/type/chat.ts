@@ -2,29 +2,32 @@ import { z } from 'zod';
 
 export const MessageSchema = z.object({
   role: z.enum(['user', 'assistant', 'system']),
-  content: z.string().min(1),
+  content: z.string().nullable()
 });
 
 export type Message = z.infer<typeof MessageSchema>;
 
 export const ChoiceSchema = z.object({
   index: z.number().int().nonnegative(),
-  message: MessageSchema,
-  finish_reason: z.enum(['stop', 'length', 'content_filter']).nullable()
+  message: z.object({
+    role: z.literal("assistant"),
+    content: z.string().nullable()
+  }),
+  finish_reason: z.string()
 });
 
 export type Choice = z.infer<typeof ChoiceSchema>;
 
 export const UsageSchema = z.object({
-  prompt_tokens: z.number().int().positive(),
-  completion_tokens: z.number().int().positive(),
-  total_tokens: z.number().int().positive()
+  prompt_tokens: z.number().int().nonnegative(),
+  completion_tokens: z.number().int().nonnegative(),
+  total_tokens: z.number().int().nonnegative()
 });
 
 export type Usage = z.infer<typeof UsageSchema>;
 
 export const RequestSchema = z.object({
-  model: z.string().includes('/'),
+  model: z.literal('openrouter/free'), 
   messages: z.array(MessageSchema),
   temperature: z.number().min(0).max(1),
   max_tokens: z.number().int().positive()
@@ -33,20 +36,17 @@ export const RequestSchema = z.object({
 export type Request = z.infer<typeof RequestSchema>;
 
 export const ResponseSchema = z.object({
-  id: z.string().startsWith('gen-'),
-  object: z.literal('chat.completion'), 
+  id: z.string(),
+  object: z.literal("chat.completion"), 
   created: z.number().int().positive(),
-  model: z.string().includes('/'),
-  choices: z.array(ChoiceSchema),
-  usage: UsageSchema
+  model: z.string(),
+  choices: z.array(ChoiceSchema).nonempty(),
+  usage: UsageSchema.optional()
 });
 
 export type Response = z.infer<typeof ResponseSchema>;
 
-export const ChatSchema = z.object({
-  start: z.number().int().positive(),
-  conversation: z.array(z.tuple([RequestSchema, ResponseSchema]))
-});
+export const ChatSchema = z.array(z.tuple([RequestSchema, ResponseSchema]));
 
 export type Chat = z.infer<typeof ChatSchema>;
 
