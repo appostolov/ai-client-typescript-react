@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
-import { ChatMapSchema, ChatMap } from "../src/type/chat";
+import { ChatMapSchema, ChatMap } from "../type/chat";
 
 export const Helper = {
     data: {},
