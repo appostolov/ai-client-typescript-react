@@ -1,15 +1,40 @@
 import { Request, Response } from 'express';
 var controller = require( "../controller/chat" );
+import { z } from 'zod';
 
 module.exports = {
 
-    select: function( req: Request, res: Response, next: Function ){
-        controller.select( req, res )
-        .then(function(){
-            next();
-        })
-        .catch(function(){
-            // next( err );
-        });
+    select: async function( req: Request, res: Response, next: Function ){
+
+        try{
+            const schema = z.object({
+                id: z.string().startsWith('gen-').optional(),
+                offset: z.number().int().nonnegative().optional(),
+                limit: z.number().int().positive().optional()
+            });
+            schema.parse( req.body );
+        }
+        catch( ex ){
+            next({
+                code: 400,
+                body: {
+                    message: "Invalid user input"
+                }
+            });
+            return;
+        }
+
+        try{
+            await controller.select( req );
+        }
+        catch( ex ){
+            next({
+                code: 500,
+                body: {
+                    message: "System error"
+                }
+            });
+            return;
+        }
     }
 };
