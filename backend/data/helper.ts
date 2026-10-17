@@ -2,7 +2,7 @@ import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
 import { ChatMapSchema, ChatMap } from "../src/type/chat";
 
-const Helper = {
+export const Helper = {
     data: {},
     read: async function(): Promise<ChatMap> {
         const file: string = path.join(__dirname, 'data.json');
@@ -14,17 +14,18 @@ const Helper = {
         catch( ex ){
             throw new Error("Invalid data");
         }
-        return data;
+        this.data = data;
+        return this.data;
     },
-    write: async function(data: ChatMap): Promise<ChatMap> {
+    write: async function(): Promise<ChatMap> {
         const file: string = path.join(__dirname, 'data.json');
         try{
-            data = ChatMapSchema.parse( data );
+            ChatMapSchema.parse( this.data );
         }
         catch( ex ){
             throw new Error("Invalid data");
         }
-        await writeFile(file, JSON.stringify(data), 'utf-8');
-        return data;
+        await writeFile(file, JSON.stringify(this.data), 'utf-8');
+        return this.data;
     }
 };
