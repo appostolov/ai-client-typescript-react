@@ -100,3 +100,17 @@ run `npm run dev`
 2. Enter the root directory `cd ai-client-typescript-react`
 3. Install dependencies `npm install`
 4. Run the app `npm run dev`
+
+# Thoughts about React
+* Nice first glance
+* Good to have JSX
+* I is very hard to understand the lifecycle of the components
+* Indirect lifecycle hooks
+* Hidden rules to skip some loops - very hard to debug
+* It was difficult to extract configurable points
+* The component function parameters are passed by reference
+* The lifecycle hooks are called async
+* States and JSX are executed sync
+* The component function is central place. It is executed on every stage
+* React use hidden checks to skip some executions and preserve instances
+* It was hard to implement interface for configuring dynamic component structures
