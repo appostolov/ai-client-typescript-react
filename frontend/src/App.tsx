@@ -1,8 +1,7 @@
 import Node from './components/Node'
 import { useEffect, useState } from 'react';
 
-function App() {
-
+function root(){
   let config: any = {
     setStates: function(){
       this.state = useState( this );
@@ -40,16 +39,38 @@ function App() {
 
       }, [self.state[0]])
     },
-    getJSX: function(){
+    setJSX: function(){
+      console.log("JSX");
       return (
-          <div>{this.state[0].test}</div>
+          <div key={"root"}>{this.state[0].test}</div>
       )
     },
-    test: 0
+    test: 0,
+    children: [
+      {
+        setStates: function(){
+          this.state = useState( this );
+        },
+        setJSX: function(){
+          return (<div>{this.state[0].parent}</div>);
+        }
+      },
+      {
+        setStates: function(){
+          this.state = useState( this );
+        },
+        setJSX: function(){
+          return (<div>{this.state[0].parent}</div>);
+        }
+      }
+    ]
   };
-  
+  return config;
+}
+
+function App() {
   return (
-      <Node config={config} />
+    <Node config={root()} />
   )
 }
 
