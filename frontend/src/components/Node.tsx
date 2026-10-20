@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
 import ComponentHelper from '../helpers/ComponentHelper'
+import type { Props, Config } from "../types/Component"
 
-function Node({ config }: any) {
+function Node({ config }: Props) {
 
     // Generate component ID
     const id = useRef( "" )
@@ -38,7 +39,7 @@ function Node({ config }: any) {
         <div className={config.className}>
             {
                 config.children?.map(
-                    ( child: any, i: Number ) => {
+                    ( child: Config, i: number ) => {
                         child.parent = id.current;
                         return <Node key={i} config={child}/>
                     }

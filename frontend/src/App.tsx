@@ -1,8 +1,9 @@
 import Node from './components/Node'
 import { useEffect, useState } from 'react';
+import type { Config } from "./types/Component"
 
-function root(){
-  let config: any = {
+function root(): Config{
+  let config: Config = {
     setStates: function(){
       this.state = useState( this );
     },
@@ -10,7 +11,7 @@ function root(){
         console.log("INIT");
         const self = this;
         this.timer = setInterval(() => {
-            self.state[1]((c: any) => {
+            self.state[1]((c: Config) => {
                 return Object.assign(
                     {},
                     c,
