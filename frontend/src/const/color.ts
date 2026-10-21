@@ -1,5 +1,5 @@
 const COLOR = {
-    main: "rgb(26, 129, 239)",
+    main: "rgb(111, 0, 255)",
     back: "rgb(255 255 255)",
     text: "rgb(102 102 102)",
     lightText: "rgb(204 204 204)",
