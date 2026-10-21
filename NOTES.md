@@ -114,3 +114,10 @@ run `npm run dev`
 * The component function is central place. It is executed on every stage
 * React use hidden checks to skip some executions and preserve instances
 * It was hard to implement interface for configuring dynamic component structures
+
+# The framework is ready ( Node.tsx, ComponentHandler.ts, etc. ).
+# Lets start building the chat client
+* First stop - the layout
+  I see window, with header on top, with container under it
+* Some CSS library is needed as well as colors
+  Imported index.css and ColorHelper
