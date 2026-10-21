@@ -121,3 +121,11 @@ run `npm run dev`
   I see window, with header on top, with container under it
 * Some CSS library is needed as well as colors
   Imported index.css and ColorHelper
+* Some buttons will be placed in the header
+  So we need a Button component
+
+# Button Component
+* We need to extend Node to have centreal control over every component
+* We want to be able to pass onClick function for the Button
+* We want to be able to enable/disable a button
+* We want multiple button types e.g. Solid, Border, Text, etc.
