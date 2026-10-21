@@ -7,7 +7,7 @@ export default function Header(): Config{
     className: "flexNone",
     key: "header",
     children: [
-      Button({
+      new Button({
         type: "button_border",
         text: "hello",
         onClick: function(){

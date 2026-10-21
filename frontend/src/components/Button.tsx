@@ -1,43 +1,44 @@
-import type { Config } from "../types/Component"
 import COMP from "../const/component"
 import Base from "../components/Base"
+import { useState } from "react"
 
-export default function Button(config: Config): Config{
-  const button: Config = {
-    setJSX: function(){
+export default class Button extends Base{
+    declare text: string | undefined
+    declare onClick: Function | undefined
+    declare type: string
+
+    protected _setStates(){
+      super._setStates(); 
+      this.state.type = useState( this.type )
+    }
+
+    setJSX(){
       return (
         <button
-          className={css(this)}
-          onClick={this?.onClick.bind(this)}
-          disabled={this.state.disabled[0]}>
+          className={ this.css() }
+          onClick= {this?.onClick?.bind( this ) }
+          disabled={ this.state.disabled[0] }>
           {this?.text}
         </button>
       );
     }
-  };
-  const test = new Base( Object.assign( button, config ) );
-  return test;
-}
 
-function css(config: Config): string{
-  let css = "flexNone centered paddingMedium cursorPointer borderRadiusSmall";
-  css += " " + buttonType(config.type);
-  if( config.state.disabled[0] ) css += " disabled";
-  return css;
-}
+    css(): string{
+      let css = "flexNone centered paddingMedium cursorPointer borderRadiusSmall";
+      css += " " + this.buttonType();
+      if( this.state.disabled[0] ) css += " disabled";
+      return css;
+    }
 
-function buttonType(type: string | undefined): string{
-  const defaultType = COMP.BUTTON.TYPE.SOLID;
-  if( !type || !Object.values(COMP.BUTTON.TYPE).includes(type) ){
-    type = defaultType;
-  }
-  switch(type){
-    case COMP.BUTTON.TYPE.SOLID:
-      return "mainBackgroundColor backColor";
-    case COMP.BUTTON.TYPE.BORDER:
-      return "backBackgroundColor mainColor mainBorderColor borderSolid borderSmall";
-    case COMP.BUTTON.TYPE.TEXT:
-      return "backBackgroundColor mainColor";
-  }
-  return "";
+    buttonType(): string{
+      switch( this.state.type[0] ){
+        case COMP.BUTTON.TYPE.SOLID:
+          return "mainBackgroundColor backColor";
+        case COMP.BUTTON.TYPE.BORDER:
+          return "backBackgroundColor mainColor mainBorderColor borderSolid borderSmall";
+        case COMP.BUTTON.TYPE.TEXT:
+          return "backBackgroundColor mainColor";
+      }
+      return "";
+    }
 }

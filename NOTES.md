@@ -135,3 +135,13 @@ run `npm run dev`
 * I want center implementation in Node component for this
 * There will be other central implementations for similar things
 * The implementation should include changing the component configuration and trigger rerender
+
+# Funny ES6 story
+* When add class properties in the constructor TypeScript does not see them
+* If you define them to calm TS the constructor overrides them and everything is good
+* But for a child class the story is different
+  * The parent constructor is invoked first
+  * Then child class properties are evaluated and they override the parent constructor work
+  * But if you remove the properties form the child TS complains, because you use them in methods
+* The solution is just ot declare the properties
+  This way the TS is calm and parent constructor work is not overriden

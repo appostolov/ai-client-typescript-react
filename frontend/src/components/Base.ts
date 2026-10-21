@@ -3,7 +3,7 @@ import { useState } from "react"
 
 export default class Base implements Config{
 
-    protected disabled = false
+    declare protected disabled: boolean | undefined
     protected state: Record<string, [any, Function]> = {}
 
     constructor(config: Config){
