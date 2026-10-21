@@ -12,7 +12,8 @@ function Node({ config }: Props) {
 
     // Set STATEs
     // Use them in JSX
-    if( config.setStates ) config.setStates();
+    if( config._setStates ) config._setStates();// Initial for the class
+    if( config.setStates ) config.setStates();// Passed via config
     
     useEffect(() => {
         // Lifecycle Hook On INIT

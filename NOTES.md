@@ -129,3 +129,9 @@ run `npm run dev`
 * We want to be able to pass onClick function for the Button
 * We want to be able to enable/disable a button
 * We want multiple button types e.g. Solid, Border, Text, etc.
+
+# Central enable/disable function
+* Every component can have it's own implementation about enable/disable, but they all will be wired to property e.g. enabled
+* I want center implementation in Node component for this
+* There will be other central implementations for similar things
+* The implementation should include changing the component configuration and trigger rerender

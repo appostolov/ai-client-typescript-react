@@ -1,26 +1,28 @@
 import type { Config } from "../types/Component"
 import COMP from "../const/component"
+import Base from "../components/Base"
 
 export default function Button(config: Config): Config{
   const button: Config = {
     setJSX: function(){
       return (
         <button
-          className={css(config)}
-          onClick={this?.onClick.bind(config)}
-          disabled={this?.disabled}>
+          className={css(this)}
+          onClick={this?.onClick.bind(this)}
+          disabled={this.state.disabled[0]}>
           {this?.text}
         </button>
       );
     }
   };
-  return Object.assign( button, config );
+  const test = new Base( Object.assign( button, config ) );
+  return test;
 }
 
 function css(config: Config): string{
   let css = "flexNone centered paddingMedium cursorPointer borderRadiusSmall";
   css += " " + buttonType(config.type);
-  if( config.disabled ) css += " disabled";
+  if( config.state.disabled[0] ) css += " disabled";
   return css;
 }
 

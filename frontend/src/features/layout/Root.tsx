@@ -1,4 +1,5 @@
 import type { Config } from "../../types/Component"
+import Base from "../../components/Base"
 import Header from "./Header"
 import Content from "./Content"
 
@@ -11,5 +12,5 @@ export default function Root(): Config{
         Content()
     ]
   };
-  return config;
+  return new Base( config );
 }
