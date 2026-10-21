@@ -145,3 +145,7 @@ run `npm run dev`
   * But if you remove the properties form the child TS complains, because you use them in methods
 * The solution is just ot declare the properties
   This way the TS is calm and parent constructor work is not overriden
+
+# Central function in the child
+Just like Base provide enable/disable for childs I will implement Button setType to exersise the same reusable approach but for child component.
+* It is super easy, because I already have the setter from useState

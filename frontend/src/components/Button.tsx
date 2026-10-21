@@ -15,7 +15,7 @@ export default class Button extends Base{
     setJSX(){
       return (
         <button
-          className={ this.css() }
+          className={ this.getButtonCss() }
           onClick= {this?.onClick?.bind( this ) }
           disabled={ this.state.disabled[0] }>
           {this?.text}
@@ -23,14 +23,14 @@ export default class Button extends Base{
       );
     }
 
-    css(): string{
+    getButtonCss(): string{
       let css = "flexNone centered paddingMedium cursorPointer borderRadiusSmall";
-      css += " " + this.buttonType();
+      css += " " + this.getButtonTypeCss();
       if( this.state.disabled[0] ) css += " disabled";
       return css;
     }
 
-    buttonType(): string{
+    getButtonTypeCss(): string{
       switch( this.state.type[0] ){
         case COMP.BUTTON.TYPE.SOLID:
           return "mainBackgroundColor backColor";
@@ -40,5 +40,9 @@ export default class Button extends Base{
           return "backBackgroundColor mainColor";
       }
       return "";
+    }
+
+    setButtonType( type: string ): void{
+      this.state.type[1]( type );
     }
 }
