@@ -12,7 +12,7 @@ export default class Button extends Base{
       this.state.type = useState( this.type )
     }
 
-    setJSX(){
+    public setJSX(){
       return (
         <button
           className={ this.getButtonCss() }
@@ -23,14 +23,14 @@ export default class Button extends Base{
       );
     }
 
-    getButtonCss(): string{
+    protected getButtonCss(): string{
       let css = "flexNone centered paddingMedium cursorPointer borderRadiusSmall";
       css += " " + this.getButtonTypeCss();
       if( this.state.disabled[0] ) css += " disabled";
       return css;
     }
 
-    getButtonTypeCss(): string{
+    protected getButtonTypeCss(): string{
       switch( this.state.type[0] ){
         case COMP.BUTTON.TYPE.SOLID:
           return "mainBackgroundColor backColor";
@@ -42,7 +42,7 @@ export default class Button extends Base{
       return "";
     }
 
-    setButtonType( type: string ): void{
+    public setButtonType( type: string ): void{
       this.state.type[1]( type );
     }
 }
