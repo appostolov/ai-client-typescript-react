@@ -13,6 +13,54 @@ export default function Header(): Config{
         onClick: function(){
           this.disable();
         }
+      }),
+      new Base({
+        onInit: function(){
+          const ch = this.getChildren({}, false);
+          debugger;
+        },
+        children: [
+          new Base({
+            children: [
+              new Base({
+                children: [
+                  new Base({
+                    children: [
+                    ]
+                  }),
+                  new Base({
+                    children: [
+                    ]
+                  })
+                ]
+              }),
+              new Base({
+                children: [
+                  new Base({
+                    children: [
+                    ]
+                  }),
+                  new Base({
+                    children: [
+                    ]
+                  })
+                ]
+              })
+            ]
+          }),
+          new Base({
+            children: [
+              new Base({
+                children: [
+                ]
+              }),
+              new Base({
+                children: [
+                ]
+              })
+            ]
+          })
+        ]
       })
     ]
   };
