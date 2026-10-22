@@ -15,34 +15,27 @@ export default function Header(): Config{
         }
       }),
       new Base({
-        onInit: function(){
-          const ch = this.getChildren({}, false);
-          debugger;
-        },
         children: [
           new Base({
             children: [
               new Base({
                 children: [
-                  new Base({
-                    children: [
-                    ]
+                  new Button({
+                    text: "heyhey",
+                    onClick: function(){
+                      const p = this.getParent({ key: "header" });
+                      debugger;
+                    }
                   }),
                   new Base({
-                    children: [
-                    ]
                   })
                 ]
               }),
               new Base({
                 children: [
                   new Base({
-                    children: [
-                    ]
                   }),
                   new Base({
-                    children: [
-                    ]
                   })
                 ]
               })
