@@ -1,4 +1,4 @@
-import type { Config, State } from "../types/Component"
+import type { Config, State, Effect } from "../types/Component"
 import { useState, useEffect } from "react"
 import ComponentHelper from '../helpers/ComponentHelper'
 
@@ -10,6 +10,7 @@ export default class Base implements Config{
     declare public disabled: boolean | undefined
     public states = [ "disabled" ];
     public state: Record<string, State> = {}
+    private effects: Effect[] = []
 
     constructor(config: Config){
         Object.assign( this, config );
@@ -42,7 +43,7 @@ export default class Base implements Config{
         for( const key of this.states ){
             useEffect(() => {
                 for( const effect of self.state[key].effects ){
-                    effect();
+                    effect( self.state[key].value );
                 }
             }, [ this.state[key].value ]);
         }
@@ -186,5 +187,14 @@ export default class Base implements Config{
             strict
         );
         return parents[ 0 ];
+    }
+
+    addEffect( state: State, effect: Function ): void{
+        state.effects.push( effect );
+        this.effects.push({
+            state: state,
+            effect: effect
+        });
+        effect( state.value );
     }
 }

@@ -29,10 +29,10 @@ export default function Header(): Config{
           setTimeout(() => {
             const header = self.getParent({ key: "header" });
             const button = header.getChild({ text: "hello" });
-            const effect = function(){
-              self.state.type.setter(button.state.type.value);
+            const effect = function( val: any ){
+              self.state.type.setter( val );
             };
-            button.state.type.effects.push( effect );
+            self.addEffect( button.state.type, effect );
           });
         }
       })

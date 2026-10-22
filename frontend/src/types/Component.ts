@@ -23,3 +23,8 @@ export interface State {
   setter: Function;
   effects: Function[]     
 }
+
+export interface Effect {
+  state: State;
+  effect: Function;
+}
