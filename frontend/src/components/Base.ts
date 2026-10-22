@@ -24,26 +24,63 @@ export default class Base implements Config{
         this.state.disabled[1]( true );
     }
 
-    public getChildren( props: Record<string, any>, deep: boolean = false ): Config[]{
+    public getChildren(
+        props: Record<string, any> = {},
+        deep: boolean = false,
+        first: boolean = false,
+        strict: boolean = true
+    ): Config[]{
+
+        if( !deep ){
+            const filter = Object.assign(
+                {
+                    parent: this.id
+                },
+                props
+            );
+            return ComponentHelper.find( filter, first, strict );
+        }
+
         const filter = Object.assign(
             {
                 parent: this.id
-            },
-            props
+            }
         );
-        const children =  ComponentHelper.find( filter, false, true );
-
-        if( !deep ) return children;
-
+        const children =  ComponentHelper.find( filter );
         const descendants = [];
 
         for( let child of children ){
-            const grandChildren = child.getChildren( props, deep );
+            const grandChildren = child.getChildren( {}, true );
             descendants.push( ...grandChildren );
         }
 
         children.push( ...descendants );
 
-        return children;
+        const keys = Object.keys( props );
+        const result: Config[] = [];
+        for( let child of children ){
+
+            if( !keys.length ){
+
+                if( first ) return [ children[ 0 ] ];
+                else return children;
+            }
+
+            for( let key of keys ){
+                
+                const equal = child[key] === props[key];
+
+                if( strict && !equal ) break;
+
+                if( equal && !strict ){
+                    result.push( child );
+                    break;
+                }
+                
+                if( equal && keys.indexOf( key ) === keys.length - 1 ) result.push( child );
+            }
+            if( first && result.length ) break;
+        }
+        return result;
     }
 }
