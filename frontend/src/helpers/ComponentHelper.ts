@@ -19,14 +19,21 @@ const ComponentHelper: Helper = {
     remove: function( id: string ){
         delete this.components[id];
     },
-    find: function( props: Record<string, any>, first: boolean = false, strict: boolean = true ){
+    find: function( props: Record<string, any> = {}, first: boolean = false, strict: boolean = true ){
 
+        const ids = Object.keys( this.components )
+        const keys = Object.keys( props );
         const result: Config[] = [];
 
-        for( let id of Object.keys( this.components ) ){
+        if( !keys.length ){
+
+            if( first ) return [ this.components[ ids[ 0 ] ] ];
+            else return Object.values( this.components );
+        }
+
+        for( let id of ids ){
 
             const component = this.components[ id ];
-            const keys = Object.keys( props );
 
             for( let key of keys ){
                 
