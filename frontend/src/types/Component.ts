@@ -7,8 +7,8 @@ type Registry = Record<string, Config>;
 export interface Helper {
   components: Registry;
   generateId(): string;
-  register(id: string, config: Config): void;
-  remove(id: string): void;
+  register(config: Config): void;
+  remove(config: Config): void;
   find(props?: Record<string, any>, first?: boolean, strict?: boolean): Config[];
 }
 

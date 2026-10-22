@@ -9,15 +9,18 @@ const ComponentHelper: Helper = {
         count++;
         return "comp_" + count;
     },
-    register: function( id: string, config: any ){
-
-        if( this.components[id] ) return;
-
+    register: function( config: any ){
+        const id: string = this.generateId();
         config.id = id;
-        this.components[id] = config;
+        if( Array.isArray( config.children ) ){
+            for( const child of config.children ){
+                child.parent = id;
+            }
+        }
+        this.components[config.id] = config;
     },
-    remove: function( id: string ){
-        delete this.components[id];
+    remove: function( config: any){
+        delete this.components[config.id];
     },
     find: function( props: Record<string, any> = {}, first: boolean = false, strict: boolean = true ){
 

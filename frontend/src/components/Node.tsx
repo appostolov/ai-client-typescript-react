@@ -1,14 +1,8 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import ComponentHelper from '../helpers/ComponentHelper'
 import type { Props, Config } from "../types/Component"
 
 function Node({ config }: Props) {
-
-    // Generate component ID
-    const id = useRef( "" )
-    if( !id.current ) id.current = ComponentHelper.generateId();
-    // Register the component once / this will skip if ID exists
-    ComponentHelper.register( id.current, config );
 
     // Set STATEs
     // Use them in JSX
@@ -16,6 +10,8 @@ function Node({ config }: Props) {
     if( config.setStates ) config.setStates();// Passed via config
     
     useEffect(() => {
+        // Register the component once / this will skip if ID exists
+        ComponentHelper.register( config );
         // Lifecycle Hook On INIT
         if( config.onInit ) config.onInit();
 
@@ -25,8 +21,7 @@ function Node({ config }: Props) {
 
             // Unregister component
             // Reset ID ref
-            ComponentHelper.remove( config.id );
-            id.current = "";
+            ComponentHelper.remove( config );
         }
     }, []);
 
@@ -41,7 +36,6 @@ function Node({ config }: Props) {
             {
                 config.children?.map(
                     ( child: Config, i: number ) => {
-                        child.parent = id.current;
                         return <Node key={i} config={child}/>
                     }
                 )
