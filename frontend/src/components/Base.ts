@@ -83,4 +83,14 @@ export default class Base implements Config{
         }
         return result;
     }
+
+    getChild( props: Record<string, any> = {} ): Config | void {
+
+        const children: Config[] = this.getChildren(
+            props,
+            true,
+            true
+        );
+        return children[ 0 ];
+    }
 }
