@@ -9,6 +9,7 @@ export interface Helper {
   generateId(): string;
   register(id: string, config: Config): void;
   remove(id: string): void;
+  find(props: Record<string, any>, first: boolean, strict: boolean): Config[];
 }
 
 export interface Props {

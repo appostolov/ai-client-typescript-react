@@ -149,3 +149,10 @@ run `npm run dev`
 # Central function in the child
 Just like Base provide enable/disable for childs I will implement Button setType to exersise the same reusable approach but for child component.
 * It is super easy, because I already have the setter from useState
+
+# Connect The Nodes
+* Now I'm able to build structure of Nodes
+* Nodes have central functionalities
+* I need to enable them to find and interact with each other
+* Find parent/childs will be implemented in Base
+* We will need a way to listen for changes cross nodes
