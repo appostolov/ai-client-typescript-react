@@ -5,9 +5,7 @@ import type { Props, Config } from "../types/Component"
 function Node({ config }: Props) {
 
     // Set STATEs
-    // Use them in JSX
-    if( config._setStates ) config._setStates();// Initial for the class
-    if( config.setStates ) config.setStates();// Passed via config
+    if( config.setStates ) config.setStates();
     
     useEffect(() => {
         // Register the component once / this will skip if ID exists

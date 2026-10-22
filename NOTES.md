@@ -156,3 +156,8 @@ Just like Base provide enable/disable for childs I will implement Button setType
 * I need to enable them to find and interact with each other
 * Find parent/childs will be implemented in Base
 * We will need a way to listen for changes cross nodes
+
+# Funny React
+* Every invoke of the component function should produce the same number of useState and useEffect and in the same order :D
+* Updated Base component to generate states and effects out of the box
+* Tested component communication and state exchange

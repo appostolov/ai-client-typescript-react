@@ -1,23 +1,18 @@
 import COMP from "../const/component"
 import Base from "../components/Base"
-import { useState } from "react"
 
 export default class Button extends Base{
     declare text: string | undefined
     declare onClick: Function | undefined
     declare type: string
-
-    protected _setStates(){
-      super._setStates(); 
-      this.state.type = useState( this.type )
-    }
+    public states: string[] = [ "disabled", "type" ]
 
     public setJSX(){
       return (
         <button
           className={ this.getButtonCss() }
           onClick= {this?.onClick?.bind( this ) }
-          disabled={ this.state.disabled[0] }>
+          disabled={ this.state.disabled.value }>
           {this?.text}
         </button>
       );
@@ -26,12 +21,12 @@ export default class Button extends Base{
     protected getButtonCss(): string{
       let css = "flexNone centered paddingMedium cursorPointer borderRadiusSmall";
       css += " " + this.getButtonTypeCss();
-      if( this.state.disabled[0] ) css += " disabled";
+      if( this.state.disabled.value ) css += " disabled";
       return css;
     }
 
     protected getButtonTypeCss(): string{
-      switch( this.state.type[0] ){
+      switch( this.state.type.value ){
         case COMP.BUTTON.TYPE.SOLID:
           return "mainBackgroundColor backColor";
         case COMP.BUTTON.TYPE.BORDER:
@@ -43,6 +38,6 @@ export default class Button extends Base{
     }
 
     public setButtonType( type: string ): void{
-      this.state.type[1]( type );
+      this.state.type.setter( type );
     }
 }

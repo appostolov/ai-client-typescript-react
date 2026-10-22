@@ -11,49 +11,30 @@ export default function Header(): Config{
         type: "button_border",
         text: "hello",
         onClick: function(){
-          this.disable();
+          const types = [
+            "button_solid",
+            "button_border",
+            "button_text"
+          ];
+          let index = types.indexOf( this.state.type.value );
+          index++;
+          if( index > types.length ) index = 0;
+          this.state.type.setter( types[index] );
         }
       }),
-      new Base({
-        children: [
-          new Base({
-            children: [
-              new Base({
-                children: [
-                  new Button({
-                    text: "heyhey",
-                    onClick: function(){
-                      const p = this.getParent({ key: "header" });
-                      debugger;
-                    }
-                  }),
-                  new Base({
-                  })
-                ]
-              }),
-              new Base({
-                children: [
-                  new Base({
-                  }),
-                  new Base({
-                  })
-                ]
-              })
-            ]
-          }),
-          new Base({
-            children: [
-              new Base({
-                children: [
-                ]
-              }),
-              new Base({
-                children: [
-                ]
-              })
-            ]
-          })
-        ]
+      new Button({
+        text: "heyhey",
+        onInit: function(){
+          const self = this;
+          setTimeout(() => {
+            const header = self.getParent({ key: "header" });
+            const button = header.getChild({ text: "hello" });
+            const effect = function(){
+              self.state.type.setter(button.state.type.value);
+            };
+            button.state.type.effects.push( effect );
+          });
+        }
       })
     ]
   };

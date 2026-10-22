@@ -17,3 +17,9 @@ export interface Props {
   key?: number;
   [key: string]: any;        
 }
+
+export interface State {
+  value: any;
+  setter: Function;
+  effects: Function[]     
+}

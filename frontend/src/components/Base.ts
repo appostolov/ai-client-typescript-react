@@ -1,28 +1,59 @@
-import type { Config } from "../types/Component"
-import { useState } from "react"
+import type { Config, State } from "../types/Component"
+import { useState, useEffect } from "react"
 import ComponentHelper from '../helpers/ComponentHelper'
 
 export default class Base implements Config{
 
+    [key: string]: any;
     declare public id: string
     declare public parent: string
-    declare protected disabled: boolean | undefined
-    protected state: Record<string, [any, Function]> = {}
+    declare public disabled: boolean | undefined
+    public states = [ "disabled" ];
+    public state: Record<string, State> = {}
 
     constructor(config: Config){
         Object.assign( this, config );
     }
 
-    protected _setStates(){
-        this.state.disabled = useState( this.disabled )
+    protected setStates(){
+        for( const key of this.states ){
+            const state = useState( this[key] );
+            if( !this.id ){
+                this.state[key] = {
+                    value: state[0],
+                    setter: state[1],
+                    effects: []
+                }
+            }
+            else{
+                Object.assign(
+                    this.state[key],
+                    {
+                        value: state[0],
+                        setter: state[1]
+                    }
+                );
+            }
+        }
+    }
+
+    protected setEffects(){
+        const self = this;
+        for( const key of this.states ){
+            useEffect(() => {
+                for( const effect of self.state[key].effects ){
+                    effect();
+                }
+            }, [ this.state[key].value ]);
+        }
     }
 
     public enable(){
-        this.state.disabled[1]( false );
+        this.state.disabled.setter( false );
     }
 
     public disable(){
-        this.state.disabled[1]( true );
+        this.state.disabled.setter( true );
     }
 
     public getChildren(
