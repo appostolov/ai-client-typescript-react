@@ -10,6 +10,7 @@ export default class Textarea extends Base{
     public setJSX(){
       return (
         <textarea
+          ref={this.domRef}
           className={ this.getTextareaCss() }
           onChange= {this?.onChange?.bind( this ) }
           onInput= {this?.onInput?.bind( this ) }

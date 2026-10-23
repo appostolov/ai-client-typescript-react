@@ -4,12 +4,13 @@ import Base from "../components/Base"
 export default class Button extends Base{
     declare text: string | undefined
     declare onClick: Function | undefined
-    declare type: string
+    public type: string = COMP.BUTTON.TYPE.SOLID
     public states: string[] = [ "disabled", "type" ]
 
     public setJSX(){
       return (
         <button
+          ref={this.domRef}
           className={ this.getButtonCss() }
           onClick= {this?.onClick?.bind( this ) }
           disabled={ this.state.disabled.value }>
