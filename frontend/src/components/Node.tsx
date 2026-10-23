@@ -1,7 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import type { Props, Config } from "../types/Component"
 
 function Node({ config }: Props) {
+
+    config.domRef = useRef<HTMLDivElement>(null);
 
     // Set STATEs
     if( config.setStates ) config.setStates();
@@ -20,6 +22,10 @@ function Node({ config }: Props) {
         }
     }, []);
 
+    useEffect(() => {
+        config.domRefUpdated();
+    }, [ config.domRef ]);
+
     // Set EFFECTs
     if( config.setEffects ) config.setEffects();
 
@@ -27,7 +33,7 @@ function Node({ config }: Props) {
     if( config.setJSX ) return config.setJSX();
     // Or render children
     else return (
-        <div className={config.className}>
+        <div ref={config.domRef} className={config.className}>
             {
                 config.children?.map(
                     ( child: Config, i: number ) => {
