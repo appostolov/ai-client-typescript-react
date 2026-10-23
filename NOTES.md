@@ -161,3 +161,13 @@ Just like Base provide enable/disable for childs I will implement Button setType
 * Every invoke of the component function should produce the same number of useState and useEffect and in the same order :D
 * Updated Base component to generate states and effects out of the box
 * Tested component communication and state exchange
+
+# Ready To Go
+No I can build component structure fast and exchange state between them
+It is time to go with the AI client itself
+* When searching for soution for the FE routing I realized event subscription mechanism is needed
+
+# Event Subscription Implementation
+* Updated Node to pass the DOM instance
+* Implemented Base add/clear Events
+* React is changing the DOM element on the fly :D
