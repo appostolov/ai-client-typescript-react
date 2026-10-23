@@ -171,3 +171,16 @@ It is time to go with the AI client itself
 * Updated Node to pass the DOM instance
 * Implemented Base add/clear Events
 * React is changing the DOM element on the fly :D
+
+# Check This Out ;D
+* I watch property state
+* Based on the state I switch two components
+* The look identical, but are two different components with own events etc.
+* React is actually REUSING the furst one to look like the second, but forget to switch events :D
+* I found this by clicking visibly different buttons, but hitting the same event listener
+* :D:D:D
+* And if I provide totally different components to avoid reusing the first one
+* React complains about difference in the hook order
+* :D:D:D
+
+# To Exchange Components Base On State Pass Key Property!!!

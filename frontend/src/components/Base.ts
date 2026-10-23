@@ -225,13 +225,13 @@ export default class Base implements Config{
         }
     }
 
-    private addEvents(): void {
+    protected addEvents(): void {
         for( const event of this.events ){
             this.addEvent( event );
         }
     }
 
-    private clearEvents(): void {
+    protected clearEvents(): void {
         if( this.AbortController ) this.AbortController.abort();
         this.AbortController = null;
     }
