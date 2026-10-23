@@ -16,6 +16,15 @@ export default class Base implements Config{
         Object.assign( this, config );
     }
 
+    public init() : void {
+        ComponentHelper.register( this );
+    }
+
+    public close() : void {
+        this.clearEffects();
+        ComponentHelper.remove( this );
+    }
+
     protected setStates(){
         for( const key of this.states ){
             const state = useState( this[key] );
@@ -196,5 +205,11 @@ export default class Base implements Config{
             effect: effect
         });
         effect( state.value );
+    }
+
+    clearEffects(): void{
+        for( const item of this.effects ){
+            item.state.effects = item.state.effects.filter( cb => cb !== item.effect );
+        }
     }
 }

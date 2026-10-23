@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import ComponentHelper from '../helpers/ComponentHelper'
 import type { Props, Config } from "../types/Component"
 
 function Node({ config }: Props) {
@@ -8,18 +7,16 @@ function Node({ config }: Props) {
     if( config.setStates ) config.setStates();
     
     useEffect(() => {
-        // Register the component once / this will skip if ID exists
-        ComponentHelper.register( config );
+        // INIT component
+        config.init();
         // Lifecycle Hook On INIT
         if( config.onInit ) config.onInit();
 
         return () => {
             // Lifecycle Hook On CLOSE
             if( config.onClose ) config.onClose();
-
-            // Unregister component
-            // Reset ID ref
-            ComponentHelper.remove( config );
+            // CLOSE component
+            config.close();
         }
     }, []);
 
