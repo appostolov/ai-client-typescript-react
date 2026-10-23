@@ -28,3 +28,12 @@ export interface Effect {
   state: State;
   effect: Function;
 }
+
+export interface Event {
+  type: string;
+  node: EventTarget;
+  callback: Function;
+  self?: boolean;
+  selector?: string;
+  useCapture?: boolean;
+}

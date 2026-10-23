@@ -1,4 +1,4 @@
-import type { Config, State, Effect } from "../types/Component"
+import type { Config, State, Effect, Event } from "../types/Component"
 import { useState, useEffect } from "react"
 import ComponentHelper from '../helpers/ComponentHelper'
 
@@ -11,18 +11,30 @@ export default class Base implements Config{
     public states = [ "disabled" ];
     public state: Record<string, State> = {}
     private effects: Effect[] = []
+    private events: Event[] = []
 
     constructor(config: Config){
         Object.assign( this, config );
     }
 
+    public get node(){
+        return this.domRef.current;
+    }
+
     public init() : void {
         ComponentHelper.register( this );
+        this.addEvents();
     }
 
     public close() : void {
         this.clearEffects();
+        this.clearEvents();
         ComponentHelper.remove( this );
+    }
+
+    public domRefUpdated(){
+        this.clearEvents();
+        this.addEvents();
     }
 
     protected setStates(){
@@ -127,7 +139,7 @@ export default class Base implements Config{
         return result;
     }
 
-    getChild(
+    public getChild(
         props: Record<string, any> = {},
         strict: boolean = true
     ): Config | void {
@@ -141,7 +153,7 @@ export default class Base implements Config{
         return children[ 0 ];
     }
 
-    getParents(
+    public getParents(
         props: Record<string, any> = {},
         first: boolean = false,
         strict: boolean = true
@@ -185,7 +197,7 @@ export default class Base implements Config{
         return result;
     }
 
-    getParent(
+    public getParent(
         props: Record<string, any> = {},
         strict: boolean = true
     ): Config | void {
@@ -198,7 +210,7 @@ export default class Base implements Config{
         return parents[ 0 ];
     }
 
-    addEffect( state: State, effect: Function ): void{
+    public addEffect( state: State, effect: Function ): void{
         state.effects.push( effect );
         this.effects.push({
             state: state,
@@ -207,9 +219,39 @@ export default class Base implements Config{
         effect( state.value );
     }
 
-    clearEffects(): void{
+    protected clearEffects(): void{
         for( const item of this.effects ){
             item.state.effects = item.state.effects.filter( cb => cb !== item.effect );
         }
+    }
+
+    private addEvents(): void {
+        for( const event of this.events ){
+            this.addEvent( event );
+        }
+    }
+
+    private clearEvents(): void {
+        if( this.AbortController ) this.AbortController.abort();
+        this.AbortController = null;
+    }
+
+    public addEvent( event: Event ){
+
+		if( !this.AbortController ) this.AbortController = new AbortController();
+
+		var node;
+		if( event.self ) node = this.node;
+		else if( event.node ) node = event.node;
+		else node = document;
+		if( event.selector ) node = node.querySelector( event.selector );
+		if( !node ) return;
+
+		event.callback = event.callback.bind( this );
+
+        const options = {
+            signal: this.AbortController.signal
+        };
+		node.addEventListener( event.type, event.callback, options, event.useCapture );
     }
 }
