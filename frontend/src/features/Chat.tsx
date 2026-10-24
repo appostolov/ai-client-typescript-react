@@ -1,7 +1,7 @@
-import type { Config } from "../../types/Component"
-import Button from "../../components/Button"
-import Textarea from "../../components/Textarea"
-import Base from "../../components/Base"
+import type { Config } from "../types/Component"
+import Button from "../components/Button"
+import Textarea from "../components/Textarea"
+import Base from "../components/Base"
 
 export default function Chat(): Config{
   const config: Config = {
