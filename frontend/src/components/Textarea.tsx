@@ -1,11 +1,12 @@
 import Base from "../components/Base"
+import COMP from "../const/component"
 
 export default class Textarea extends Base{
     declare text: string | undefined
     declare onChange: Function | undefined
     declare onInput: Function | undefined
     declare className: string | undefined
-    public states: string[] = [ "disabled", "text" ];
+    public states: string[] = COMP.STATES.BASE.concat([ "text" ])
 
     public setJSX(){
       return (

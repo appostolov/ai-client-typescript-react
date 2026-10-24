@@ -3,12 +3,13 @@ import Base from "../../components/Base"
 import Node from "../../components/Node"
 import Chats from "./Chats"
 import Chat from "./Chat"
+import COMP from "../../const/component"
 
 export default function Router(): Config{
   const config: Config = {
     key: "router",
     className: "column absoluteFull",
-    states: [ "route" ],
+    states: COMP.STATES.BASE.concat([ "route" ]),
     route: "",
     routes: {
       "": Chats(),

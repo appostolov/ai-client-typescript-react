@@ -1,4 +1,7 @@
 const COMP = {
+    STATES: {
+        BASE: [ "visible", "disabled" ]
+    },
     BUTTON: {
         TYPE: {
             SOLID: "button_solid",

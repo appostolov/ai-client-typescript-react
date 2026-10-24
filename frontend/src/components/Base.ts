@@ -8,7 +8,8 @@ export default class Base implements Config{
     declare public id: string
     declare public parent: string
     declare public disabled: boolean | undefined
-    public states = [ "disabled" ];
+    protected visible: boolean = true;
+    public states = [ "visible", "disabled" ];
     public state: Record<string, State> = {}
     private effects: Effect[] = []
     private events: Event[] = []
@@ -253,5 +254,13 @@ export default class Base implements Config{
             signal: this.AbortController.signal
         };
 		node.addEventListener( event.type, event.callback, options, event.useCapture );
+    }
+
+    public show(): void {
+        this.state.visible?.setter( true );
+    }
+
+    public hide(): void {
+        this.state.visible?.setter( false );
     }
 }

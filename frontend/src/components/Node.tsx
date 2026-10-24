@@ -29,20 +29,22 @@ function Node({ config }: Props) {
     // Set EFFECTs
     if( config.setEffects ) config.setEffects();
 
-    // Set JSX
-    if( config.setJSX ) return config.setJSX();
-    // Or render children
-    else return (
-        <div ref={config.domRef} className={config.className}>
-            {
-                config.children?.map(
-                    ( child: Config, i: number ) => {
-                        return <Node key={i} config={child}/>
-                    }
-                )
-            }
-        </div>
-    );
+    if( config.state.visible?.value ){
+        // Set JSX
+        if( config.setJSX ) return config.setJSX();
+        // Or render children
+        else return (
+            <div ref={config.domRef} className={config.className}>
+                {
+                    config.children?.map(
+                        ( child: Config, i: number ) => {
+                            return <Node key={i} config={child}/>
+                        }
+                    )
+                }
+            </div>
+        );
+    }
 }
 
 export default Node

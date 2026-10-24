@@ -5,7 +5,7 @@ export default class Button extends Base{
     declare text: string | undefined
     declare onClick: Function | undefined
     public type: string = COMP.BUTTON.TYPE.SOLID
-    public states: string[] = [ "disabled", "type" ]
+    public states: string[] = COMP.STATES.BASE.concat([ "type" ])
 
     public setJSX(){
       return (
