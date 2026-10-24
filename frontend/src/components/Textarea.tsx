@@ -1,5 +1,6 @@
 import Base from "../components/Base"
 import COMP from "../const/component"
+import type { Config } from "../types/Component"
 
 export default class Textarea extends Base{
     declare text: string | undefined
@@ -7,6 +8,11 @@ export default class Textarea extends Base{
     declare onInput: Function | undefined
     declare className: string | undefined
     public states: string[] = COMP.STATES.BASE.concat([ "text" ])
+
+    constructor(config: Config){
+      super( config )
+      Object.assign( this, config );
+    }
 
     public setJSX(){
       return (

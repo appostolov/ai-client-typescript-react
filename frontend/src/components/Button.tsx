@@ -1,11 +1,17 @@
 import COMP from "../const/component"
 import Base from "../components/Base"
+import type { Config } from "../types/Component"
 
 export default class Button extends Base{
     declare text: string | undefined
     declare onClick: Function | undefined
     public type: string = COMP.BUTTON.TYPE.SOLID
     public states: string[] = COMP.STATES.BASE.concat([ "type" ])
+
+    constructor(config: Config){
+      super( config )
+      Object.assign( this, config );
+    }
 
     public setJSX(){
       return (
@@ -22,6 +28,7 @@ export default class Button extends Base{
     protected getButtonCss(): string{
       let css = "flexNone centered paddingMedium cursorPointer borderRadiusSmall";
       css += " " + this.getButtonTypeCss();
+      if( this.className ) css += " " + this.className;
       if( this.state.disabled.value ) css += " disabled";
       return css;
     }
