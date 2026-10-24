@@ -12,12 +12,7 @@ const ComponentHelper: Helper = {
     register: function( config: any ){
         const id: string = this.generateId();
         config.id = id;
-        if( Array.isArray( config.children ) ){
-            for( const child of config.children ){
-                child.parent = id;
-            }
-        }
-        this.components[config.id] = config;
+        this.components[id] = config;
     },
     remove: function( config: any){
         delete this.components[config.id];

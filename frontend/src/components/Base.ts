@@ -24,6 +24,11 @@ export default class Base implements Config{
 
     public init() : void {
         ComponentHelper.register( this );
+        if( Array.isArray( this.children ) ){
+            for( const child of this.children ){
+                child.parent = this.id;
+            }
+        }
         this.addEvents();
     }
 
@@ -262,5 +267,11 @@ export default class Base implements Config{
 
     public hide(): void {
         this.state.visible?.setter( false );
+    }
+
+    public openDialog( content: Config ): void {
+        const root = ( this.key === "root" ) ? this : this.getParent({ key: "root" });
+        const dialog = root?.getChild({ key: "dialog" });
+        dialog?.open( content );
     }
 }
