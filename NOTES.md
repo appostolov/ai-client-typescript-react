@@ -184,3 +184,8 @@ It is time to go with the AI client itself
 * :D:D:D
 
 # To Exchange Components Base On State Pass Key Property!!!
+
+# One Last UI Component - Dialog
+* To look functional some actions will need confirmation
+* Dialogs are showing and hiding, but they are ordinary UI Components
+* I will implement show hide functionality in Base for all components
