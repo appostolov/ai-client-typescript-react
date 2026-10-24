@@ -1,9 +1,9 @@
-import type { Config } from "../../types/Component"
-import Base from "../../components/Base"
-import Node from "../../components/Node"
+import type { Config } from "../types/Component"
+import Base from "../components/Base"
+import Node from "../components/Node"
+import COMP from "../const/component"
 import Chats from "./Chats"
 import Chat from "./Chat"
-import COMP from "../../const/component"
 
 export default function Router(): Config{
   const config: Config = {
@@ -14,6 +14,12 @@ export default function Router(): Config{
     routes: {
       "": Chats(),
       "chat/:id": Chat()
+    },
+    onInit: function(){
+      const routes: Config[] = Object.values( this.routes );
+      for( const route of routes ){
+        route.parent = this.id;
+      }
     },
     events: [
       {
@@ -34,6 +40,7 @@ export default function Router(): Config{
     ],
     setJSX: function(){
       const config: Config = this.routes[ this.state.route.value ];
+      config.parent = this.id;
       return ( <Node key={this.state.route.value} config={config}/> )
     }
   };

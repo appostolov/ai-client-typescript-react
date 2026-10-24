@@ -1,9 +1,9 @@
 import Node from './components/Node'
-import Router from './features/layout/Router'
+import Root from './features/Root'
 
 function App() {
   return (
-    <Node config={Router()} />
+    <Node config={Root()} />
   )
 }
 
