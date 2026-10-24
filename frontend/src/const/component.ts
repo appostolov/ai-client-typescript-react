@@ -8,6 +8,13 @@ const COMP = {
             BORDER: "button_border",
             TEXT: "button_text"
         }
+    },
+    DIALOG: {
+        TYPE: {
+            INFO: "dialog_info",
+            SUCCESS: "dialog_success",
+            ERROR: "dialog_error"
+        }
     }
 };
 
