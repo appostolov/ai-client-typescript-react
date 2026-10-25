@@ -2,7 +2,7 @@ import type { Config } from "../types/Component"
 import Base from "../components/Base"
 import Node from "../components/Node"
 import COMP from "../const/component"
-import Chats from "./Chats"
+import History from "./History"
 import Chat from "./Chat"
 
 export default function Router(): Config{
@@ -12,7 +12,7 @@ export default function Router(): Config{
     states: COMP.STATES.BASE.concat([ "route" ]),
     route: "",
     routes: {
-      "": Chats(),
+      "": History(),
       "chat/:id": Chat()
     },
     onInit: function(){
