@@ -4,13 +4,14 @@ import Node from "../components/Node"
 import COMP from "../const/component"
 import History from "./History"
 import Chat from "./Chat"
+import HashHelper from "../helpers/HashHelper"
 
 export default function Router(): Config{
   const config: Config = {
     key: "router",
     className: "column absoluteFull",
     states: COMP.STATES.BASE.concat([ "route" ]),
-    route: "",
+    route: HashHelper.route( "" ),
     routes: {
       "": History(),
       "chat/:id": Chat()
@@ -20,20 +21,19 @@ export default function Router(): Config{
       for( const route of routes ){
         route.parent = this.id;
       }
+      const route = HashHelper.route();
+      if( !route ) window.location.hash = "";
     },
     events: [
       {
         type: "hashchange",
         node: window,
         callback: function(){
-          let hash = window.location.hash;
-          if( hash.length ) hash = hash.split( "#" )[1];
-          const parts = hash.split( "/" );
-          let route: string;
-
-          if( parts.length === 2 && parts[0] === "chat" ) route = "chat/:id";
-          else route = "";
-
+          const route = HashHelper.route();
+          if( !route && route !== "" ){
+            window.location.hash = "";
+            return;
+          }
           this.state.route.setter( route );
         }
       }
