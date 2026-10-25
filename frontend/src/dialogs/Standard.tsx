@@ -27,12 +27,22 @@ export default function Standard( data: any ): Config{
                 cancel: "Cancel"
             };
             break;
+        case COMP.DIALOG.TYPE.WARNING:
+            fill = {
+                borderColor: "warningBorderColor",
+                icon: "⚠️",
+                title: "Warning",
+                message: "Operation warning",
+                ok: "OK",
+                cancel: "Cancel"
+            };
+            break;
         default:
             fill = {
                 borderColor: "mainBorderColor",
                 icon: "ℹ️",
-                title: "Some title",
-                message: "Some message",
+                title: "Information",
+                message: "This is information dialog",
                 ok: "OK",
                 cancel: "Cancel"
             };
