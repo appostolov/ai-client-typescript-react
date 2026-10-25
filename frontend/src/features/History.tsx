@@ -3,7 +3,6 @@ import Button from "../components/Button"
 import Base from "../components/Base"
 import COMP from "../const/component"
 import Standard from "../dialogs/Standard"
-import DataHelper from "../helpers/DataHelper"
 import type { ChatSelect, ChatItem } from "../types/Chat"
 import Node from '../components/Node'
 import { ChatItem as ChatItemFunc } from "./ChatItem"

@@ -5,9 +5,3 @@ export interface HashHelper {
   route( def?: string ): string | undefined
   id(): string | undefined
 }
-
-export interface DataHelper {
-  deleteAll(): void
-  delete( id: string ): void
-  answer( answer: Answer ): void
-}

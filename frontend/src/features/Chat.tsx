@@ -5,7 +5,6 @@ import Textarea from "../components/Textarea"
 import COMP from "../const/component"
 import Standard from "../dialogs/Standard"
 import HashHelper from "../helpers/HashHelper"
-import DataHelper from "../helpers/DataHelper"
 import type { Answer, MessageSelect, Message } from "../types/Chat"
 import { Message as ChatMessage } from "./Message"
 import Node from '../components/Node'
@@ -42,7 +41,6 @@ export default function History(): Config {
                       id: id
                     },
                     success: function(){
-                      DataHelper.delete( id  || "" );
                       self.openDialog(Standard({
                         type: COMP.DIALOG.TYPE.SUCCESS,
                         title: "Delete Chat Success",
