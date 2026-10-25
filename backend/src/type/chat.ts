@@ -29,8 +29,8 @@ export type Usage = z.infer<typeof UsageSchema>;
 export const RequestSchema = z.object({
   model: z.literal('openrouter/free'), 
   messages: z.array(MessageSchema),
-  temperature: z.number().min(0).max(1),
-  max_tokens: z.number().int().positive()
+  temperature: z.number().min(0).max(1).optional(),
+  max_tokens: z.number().int().positive().optional()
 });
 
 export type Request = z.infer<typeof RequestSchema>;

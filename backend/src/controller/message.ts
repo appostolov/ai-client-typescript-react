@@ -24,7 +24,7 @@ module.exports = {
                 {},
                 request.body.request,
                 {
-                    messages: messages.push(...request.body.request.messages)
+                    messages: messages.concat(request.body.request.messages)
                 }
             )
         );
@@ -33,11 +33,14 @@ module.exports = {
 
         if( request.body.chat ) data[request.body.chat].push(result);
         else{
-            const id = prediction.created;
+            const id = prediction.id;
             data[id] = [result];
         }
         await Helper.write();
 
-        response.status(200).json(result);
+        response.status(200).json({
+            chat: request.body.chat ? request.body.chat : prediction.id,
+            message: result
+        });
     }
 };  

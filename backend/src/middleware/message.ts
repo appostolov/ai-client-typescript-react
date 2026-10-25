@@ -26,7 +26,7 @@ module.exports = {
         }
 
         try{
-            await controller.select( req, res );
+            await controller.send( req, res );
         }
         catch( ex ){
             const err = Object.assign(

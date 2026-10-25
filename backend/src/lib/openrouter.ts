@@ -6,10 +6,10 @@ dotenv.config();
 
 // Initialize the client ONCE
 export const openrouter = new OpenAI({
-  baseURL: "https://openrouter.ai",
+  baseURL: "https://openrouter.ai/api/v1",
   apiKey: process.env.OPENROUTER_API_KEY,
   defaultHeaders: {
-    "HTTP-Referer": "https://localhost:3000",
+    "HTTP-Referer": "http://localhost:5000", 
     "X-Title": "Express Chat App",
   }
 });
