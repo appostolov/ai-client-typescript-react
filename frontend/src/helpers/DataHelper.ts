@@ -6,6 +6,9 @@ const DataHelper: Type = {
         for( const key of Object.keys( DATA ) ){
             delete DATA[key];
         }
+    },
+    delete( id ){
+        delete DATA[id];
     }
 };
 

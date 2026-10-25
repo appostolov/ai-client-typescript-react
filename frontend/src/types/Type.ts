@@ -6,4 +6,5 @@ export interface HashHelper {
 
 export interface DataHelper {
   deleteAll(): void
+  delete( id: string ): void
 }
