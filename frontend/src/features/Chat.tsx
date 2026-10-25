@@ -12,7 +12,7 @@ import Node from '../components/Node'
 
 export default function History(): Config {
   const config: Config = new Base({
-    key: "history",
+    key: "chat",
     className: "column",
     children: [
       new Base({
@@ -161,6 +161,8 @@ export default function History(): Config {
                 text: "Send 🚀",
                 disabled: true,
                 onClick: function(){
+                  const chat = this.getParent({ key: "chat" });
+                  chat.setBusy( true );
                   const textBlock = this.getParent({ key: "textBlock" });
                   const textarea = textBlock.getChild({ key: "textarea" });
                   const text = textarea.getText();
@@ -181,8 +183,8 @@ export default function History(): Config {
                       chat: id
                     },
                     success: function( data: Answer ){
-                      const history = this.getParent({ key: "history" });
-                      const messages = history.getChild({ key: "messages" });
+                      chat.setBusy( false ); 
+                      const messages = chat.getChild({ key: "messages" });
                       messages.messageAnswered( data );
 
                       const textBlock = this.getParent({ key: "textBlock" });

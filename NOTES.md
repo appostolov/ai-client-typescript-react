@@ -203,3 +203,7 @@ app.use(cors({
   credentials: true
 }));
 ```
+
+# I have pretty functional chat alsready in frontend/src/features/Chat
+* what I need now is some busy indication
+* I will implement busy indication fo the Base

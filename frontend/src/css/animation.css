@@ -1,0 +1,31 @@
+/* 2. Rapid Buzzing Motion (Simulates the frantic wing-beat vibrations) */
+.bee-buzz {
+  animation: erratic-buzz 0.08s linear infinite;
+}
+
+/* Keyframes for the frantic micro-vibrations */
+/* Using translate3d offloads processing to the GPU for better performance */
+@keyframes erratic-buzz {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg); }
+  20%  { transform: translate3d(-1px, 2px, 0) rotate(-1deg); }
+  40%  { transform: translate3d(2px, -1px, 0) rotate(1deg); }
+  60%  { transform: translate3d(-2px, -2px, 0) rotate(-0.5deg); }
+  80%  { transform: translate3d(2px, 1px, 0) rotate(1.5deg); }
+  100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+}
+
+/* Keyframes for the smoother drifting/wandering movement */
+@keyframes wander {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  33% {
+    transform: translate3d(15px, -25px, 0);
+  }
+  66% {
+    transform: translate3d(-10px, -40px, 0);
+  }
+  100% {
+    transform: translate3d(20px, -10px, 0);
+  }
+}

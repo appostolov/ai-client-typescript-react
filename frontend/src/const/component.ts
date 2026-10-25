@@ -1,6 +1,6 @@
 const COMP = {
     STATES: {
-        BASE: [ "visible", "disabled" ]
+        BASE: [ "visible", "disabled", "busy" ]
     },
     BUTTON: {
         TYPE: {

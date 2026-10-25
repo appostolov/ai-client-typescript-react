@@ -30,7 +30,7 @@ function Node({ config }: Props) {
     if( config.setEffects ) config.setEffects();
 
     if( config.state.visible?.value ){
-        // Set JSX
+
         if( config.setJSX ) return config.setJSX();
         // Or render children
         else return (
@@ -42,6 +42,9 @@ function Node({ config }: Props) {
                         }
                     )
                 }
+                {config.state.busy?.value && <div className="absoluteFull centered smokeBackgroundColor">
+                    <div className="flexNone fontSizeHuge bee-buzz">🐝</div>
+                </div>}
             </div>
         );
     }

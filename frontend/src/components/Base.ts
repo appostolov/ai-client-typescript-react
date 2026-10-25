@@ -1,6 +1,7 @@
 import type { Config, State, Effect, Event, Request } from "../types/Component"
 import { useState, useEffect } from "react"
 import ComponentHelper from '../helpers/ComponentHelper'
+import COMP from "../const/component"
 
 export default class Base implements Config{
 
@@ -9,7 +10,8 @@ export default class Base implements Config{
     declare public parent: string
     declare public disabled: boolean | undefined
     protected visible: boolean = true;
-    public states = [ "visible", "disabled" ];
+    protected busy: boolean = false;
+    public states = COMP.STATES.BASE
     public state: Record<string, State> = {}
     private effects: Effect[] = []
     private events: Event[] = []
@@ -303,5 +305,9 @@ export default class Base implements Config{
         xhttp.open( data.method || "POST", data.url, true);
         xhttp.setRequestHeader( "Content-Type", "application/json" );
         xhttp.send( JSON.stringify( data.data ) );
+    }
+
+    setBusy( busy: boolean ){
+        this.state.busy.setter( busy );
     }
 }
