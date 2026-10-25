@@ -67,6 +67,7 @@ export default function History(): Config {
         ]
       }),
       new Base({
+        key: "messages",
         className: "columnReverse overflowAuto paddingLarge",
         messages: [],
         states: COMP.STATES.BASE.concat([ "messages" ]),
@@ -103,6 +104,12 @@ export default function History(): Config {
               }));
             }
           });
+        },
+        messageAnswered: function( data: Answer ){
+          const messages: Message[] = [];
+          messages.push( data.message[1].choices[0].message );
+          messages.push( data.message[0].messages[0] );
+          this.state.messages.setter( messages.concat( this.state.messages.value ) );
         },
         events: [
           {
@@ -174,7 +181,13 @@ export default function History(): Config {
                       chat: id
                     },
                     success: function( data: Answer ){
-                      DataHelper.answer( data );
+                      const history = this.getParent({ key: "history" });
+                      const messages = history.getChild({ key: "messages" });
+                      messages.messageAnswered( data );
+
+                      const textBlock = this.getParent({ key: "textBlock" });
+                      const textarea = textBlock.getChild({ key: "textarea" });
+                      textarea.state.text.setter( "" );
                     },
                     error: function( data: any ){
                       this.openDialog(Standard({

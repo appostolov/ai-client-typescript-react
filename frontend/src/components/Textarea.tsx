@@ -22,8 +22,8 @@ export default class Textarea extends Base{
           placeholder={this.placeholder}
           onChange= {this.onChange?.bind( this ) }
           onInput= {this.onInput?.bind( this ) }
-          disabled={ this.state.disabled.value }>
-          {this?.text}
+          disabled={ this.state.disabled.value }
+          value={this.state.text.value}>
         </textarea>
       );
     }
