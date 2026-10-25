@@ -189,3 +189,17 @@ It is time to go with the AI client itself
 * To look functional some actions will need confirmation
 * Dialogs are showing and hiding, but they are ordinary UI Components
 * I will implement show hide functionality in Base for all components
+
+# Components Should Handle HTTP Requests
+* I will implement central Base functionality for HTTP requests
+* Because my FE and BE are served on different ports it is considered CORS
+* I needed to configure node express
+Run `npm install cors` and `npm i --save-dev @types/cors`
+Then add
+```
+app.use(cors({
+  origin: 'http://localhost:5173',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
+```
