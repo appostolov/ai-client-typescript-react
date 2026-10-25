@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { Helper } from "../data/helper";
-import type { Message, ChatMap, Request as OpenRouterRequest, Response as OpenRouterResponse } from "../type/chat";
+import type { Message, ChatMap, Chat, Request as OpenRouterRequest, Response as OpenRouterResponse } from "../type/chat";
 import { openrouter } from "../lib/openrouter";
 
 module.exports = {
@@ -41,6 +41,31 @@ module.exports = {
         response.status(200).json({
             chat: request.body.chat ? request.body.chat : prediction.id,
             message: result
+        });
+    },
+
+    select: async function( request: Request, response: Response ){
+
+        const data: ChatMap = await Helper.read();
+        
+        if( request.body.chat && !data[request.body.chat] ) throw {
+            code: 404,
+            body: {
+                message: "Chat not found"
+            }
+        };
+        const messages: Message[] = Helper.messages( request.body.chat );
+        messages.reverse();
+        let result: Message[] = [];
+
+        const offset = request.body.offset || 0;
+        const limit = Math.min( request.body.limit, 20 );
+        for( let i = offset; i < ( offset + limit ); i++ ){
+            if( i >= messages.length ) break;
+            result.push( messages[ i ] );
+        }
+        response.status(200).json({
+            messages: result
         });
     }
 };  

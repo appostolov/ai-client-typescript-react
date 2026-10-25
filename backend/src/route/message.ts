@@ -7,4 +7,9 @@ router.post(
     middleware.send
 );
 
+router.post(
+    '/select',
+    middleware.select
+);
+
 module.exports = router;

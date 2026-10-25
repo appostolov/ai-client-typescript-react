@@ -42,5 +42,44 @@ module.exports = {
             next( err );
             return;
         }
+    },
+
+    select: async function( req: Request, res: Response, next: Function ){
+
+        try{
+            const schema = z.object({
+                chat: z.string().startsWith('gen-'),
+                limit: z.number().int().positive().optional(),
+                offset: z.number().int().nonnegative().optional()
+            });
+            schema.parse( req.body );
+        }
+        catch( ex ){
+            next({
+                code: 400,
+                body: {
+                    message: "Invalid user input"
+                }
+            });
+            return;
+        }
+
+        try{
+            await controller.select( req, res );
+        }
+        catch( ex ){
+            const err = Object.assign(
+                {},
+                {
+                    code: 500,
+                    body: {
+                        message: "System error"
+                    }
+                },
+                ex
+            );
+            next( err );
+            return;
+        }
     }
 };
