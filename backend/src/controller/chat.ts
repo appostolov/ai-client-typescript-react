@@ -27,17 +27,13 @@ module.exports = {
 
         const data: ChatMap = await Helper.read();
 
-        if( !data[request.body.id] ) throw {
-            code: 404,
-            body: {
-                message: "Item not found"
+        if( data[request.body.id] ) delete data[request.body.id]; 
+        else{
+            for( const id of Object.keys( data ) ){
+                delete data[id]; 
             }
-        };
-
-        delete data[request.body.id]; 
-
+        }
         await Helper.write();
-        
         response.status(200).send();
     }
 };
