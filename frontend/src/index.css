@@ -712,3 +712,8 @@ body{
 .maxWidth960{
     max-width: 960px;
 }
+
+.message{
+    white-space: pre-wrap;
+    max-width: 100%;
+}

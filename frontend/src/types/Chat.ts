@@ -41,3 +41,7 @@ export interface Answer {
     chat: string;
     message: [ Request, Response ]
 }
+
+export interface MessageSelect {
+    messages: Message[]
+}

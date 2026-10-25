@@ -6,10 +6,13 @@ import COMP from "../const/component"
 import Standard from "../dialogs/Standard"
 import HashHelper from "../helpers/HashHelper"
 import DataHelper from "../helpers/DataHelper"
-import type { Answer } from "../types/Chat"
+import type { Answer, MessageSelect, Message } from "../types/Chat"
+import { Message as ChatMessage } from "./Message"
+import Node from '../components/Node'
 
-export default function History(): Config{
-  const config: Config = {
+export default function History(): Config {
+  const config: Config = new Base({
+    key: "history",
     className: "column",
     children: [
       new Base({
@@ -63,7 +66,66 @@ export default function History(): Config{
           })
         ]
       }),
-      new Base({}),
+      new Base({
+        className: "columnReverse overflowAuto paddingLarge",
+        messages: [],
+        states: COMP.STATES.BASE.concat([ "messages" ]),
+        onInit: function(){
+          this.updateChat();
+        },
+        updateChat: function( offset: number ){
+          const id = HashHelper.id();
+          if( id === "new" ){
+            this.state.messages.setter( [] );
+            return;
+          }
+          this.request({
+            url: "http://localhost:5000/message/select",
+            data: {
+              chat: id,
+              limit: 20,
+              offset: offset || 0
+            },
+            success: function( data: MessageSelect ){
+              let messages;
+              if( offset ){
+                messages = this.state.messages.value.concat( data.messages )
+              }
+              else messages = data.messages;
+              
+              this.state.messages.setter( messages );
+            },
+            error: function( data: any ){
+              this.openDialog(Standard({
+                type: COMP.DIALOG.TYPE.ERROR,
+                title: "Message Select Failed",
+                message: data.message
+              }));
+            }
+          });
+        },
+        events: [
+          {
+            type: "hashchange",
+            node: window,
+            callback: function(){
+              this.updateChat();
+            }
+          }
+        ],
+        setJSX: function(){
+          const messages: Message[] = this.state.messages.value;
+          return (
+            <div ref={this.domRef} className={this.className}>
+              {
+                messages.map(( message, index ) => {
+                  return ( <Node key={index} config={ChatMessage( message )}/> )
+                })
+              }
+            </div>
+          );
+        }
+      }),
       new Base({
         key: "textBlock",
         className: "flexNone column borderSolid borderTopTiny lighterBorderColor",
@@ -129,6 +191,6 @@ export default function History(): Config{
         ]
       })
     ]
-  };
-  return new Base( config );
+  });
+  return config;
 }

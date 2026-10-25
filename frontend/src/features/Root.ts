@@ -6,7 +6,7 @@ import Dialog from "../dialogs/Dialog"
 export default function Root(): Config{
   const config: Config = {
     key: "root",
-    className: "absoluteFull hehehe",
+    className: "absoluteFull",
     children: [
         Router(),
         Dialog()
