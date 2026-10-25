@@ -119,7 +119,26 @@ export default function History(): Config{
               }
             </div>
           );
-        }
+        },
+        events: [
+          {
+            type: "scroll",
+            self: true,
+            callback: function(){
+              const scrollTop = this.node.scrollTop;
+              const clientHeight = this.node.clientHeight;
+              const scrollHeight = this.node.scrollHeight;
+              const isAtBottom =  Math.ceil( scrollTop ) > Math.floor( scrollHeight - clientHeight );
+              console.log( "scrollTop: " + scrollTop );
+              console.log( "clientHeight: " + clientHeight );
+              console.log( "scrollHeight: " + scrollHeight );
+              if ( isAtBottom ) {
+                const chats = this.state.chats.value;
+                this.updateChats( chats.length );
+              }
+            }
+          }
+        ]
       })
     ]
   };

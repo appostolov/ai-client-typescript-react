@@ -119,6 +119,20 @@ export default function History(): Config {
             callback: function(){
               this.updateChat();
             }
+          },
+          {
+            type: "scroll",
+            self: true,
+            callback: function(){
+              const scrollTop = this.node.scrollTop;
+              const clientHeight = this.node.clientHeight;
+              const scrollHeight = this.node.scrollHeight;
+              const isAtTop = Math.abs(scrollTop) + clientHeight >= scrollHeight - 1;
+              if ( isAtTop ) {
+                const messages = this.state.messages.value;
+                this.updateChat( messages.length );
+              }
+            }
           }
         ],
         setJSX: function(){
