@@ -16,7 +16,7 @@ const HashHelper: Type = {
     },
     id: function(){
         const route = this.route();
-        if( route ) return route.split( "/" ).at( -1 );
+        if( route === "chat/:id" ) return window.location.hash.split( "/" ).at( -1 );
     }
 };
 
