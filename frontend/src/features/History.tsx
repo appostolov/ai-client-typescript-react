@@ -3,6 +3,7 @@ import Button from "../components/Button"
 import Base from "../components/Base"
 import COMP from "../const/component"
 import Standard from "../dialogs/Standard"
+import DataHelper from "../helpers/DataHelper"
 
 export default function History(): Config{
   const config: Config = {
@@ -30,6 +31,7 @@ export default function History(): Config{
                   self.request({
                     url: "http://localhost:5000/chat/delete",
                     success: function(){
+                      DataHelper.deleteAll();
                       self.openDialog(Standard({
                         type: COMP.DIALOG.TYPE.SUCCESS,
                         title: "Delete All Success",
