@@ -13,7 +13,8 @@ const COMP = {
         TYPE: {
             INFO: "dialog_info",
             SUCCESS: "dialog_success",
-            ERROR: "dialog_error"
+            ERROR: "dialog_error",
+            WARNING: "dialog_warning"
         }
     }
 };
