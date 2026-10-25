@@ -31,7 +31,7 @@ export interface Effect {
 
 export interface Event {
   type: string;
-  node: EventTarget;
+  node?: EventTarget;
   callback: Function;
   self?: boolean;
   selector?: string;
