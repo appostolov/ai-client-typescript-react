@@ -5,7 +5,7 @@ import COMP from "../const/component"
 
 export default function Standard( data: any ): Config{
 
-    let fill;
+    let fill: any;
     switch( data.type ){
         case COMP.DIALOG.TYPE.SUCCESS:
             fill = {
@@ -56,6 +56,9 @@ export default function Standard( data: any ): Config{
     const config: Config = new Base({
         key: "standard",
         className: "column backBackgroundColor borderSolid borderTiny borderRadiusSmall lighterBorderColor",
+        onClose: function(){
+            if( fill.onClose ) fill.onClose.call( this );
+        },
         children: [
             new Base({
                 className: "flexNone alignItemsCentger borderSolid borderBottomTiny lighterBorderColor",
