@@ -37,3 +37,11 @@ export interface Event {
   selector?: string;
   useCapture?: boolean;
 }
+
+export interface Request {
+  url: string;
+  method?: string,
+  data: any;
+  success( result: any, xhttp: XMLHttpRequest ): void;
+  error( result: any, xhttp: XMLHttpRequest ): void;
+}
