@@ -1,4 +1,4 @@
-import type { Config, State, Effect, Event } from "../types/Component"
+import type { Config, State, Effect, Event, Request } from "../types/Component"
 import { useState, useEffect } from "react"
 import ComponentHelper from '../helpers/ComponentHelper'
 
@@ -273,5 +273,33 @@ export default class Base implements Config{
         const root = ( this.key === "root" ) ? this : this.getParent({ key: "root" });
         const dialog = root?.getChild({ key: "dialog" });
         dialog?.open( content );
+    }
+
+    public async request( data: Request ){
+
+        const xhttp: XMLHttpRequest = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            let result;
+            if( this.readyState === 4 ){
+                const type = this.getResponseHeader("Content-Type");
+                if( !type || type.indexOf( "application/json" ) === 0 ){
+                    try{
+                        result = JSON.parse( xhttp.responseText );
+                    }
+                    catch( err ){
+                        result = xhttp.responseText;
+                    }
+                }
+                else result = xhttp.responseText;
+            }
+
+            if( this.readyState === 4 ){
+                if( this.status >= 200 && this.status < 300 ) data.success( result, xhttp );
+                else data.error( result, xhttp );
+            }
+        };
+        xhttp.open( data.method || "POST", data.url, true);
+        xhttp.setRequestHeader( "Content-Type", "application/json" );
+        xhttp.send( JSON.stringify( data.data ) );
     }
 }
