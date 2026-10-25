@@ -277,6 +277,8 @@ export default class Base implements Config{
 
     public async request( data: Request ){
 
+        const self = this;
+
         const xhttp: XMLHttpRequest = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             let result;
@@ -294,8 +296,8 @@ export default class Base implements Config{
             }
 
             if( this.readyState === 4 ){
-                if( this.status >= 200 && this.status < 300 ) data.success( result, xhttp );
-                else data.error( result, xhttp );
+                if( this.status >= 200 && this.status < 300 ) data.success.call( self, result, xhttp );
+                else data.error.call( self, result, xhttp );
             }
         };
         xhttp.open( data.method || "POST", data.url, true);
