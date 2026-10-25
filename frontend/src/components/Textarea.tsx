@@ -18,24 +18,42 @@ export default class Textarea extends Base{
       return (
         <textarea
           ref={this.domRef}
-          className={ this.getTextareaCss() }
-          onChange= {this?.onChange?.bind( this ) }
-          onInput= {this?.onInput?.bind( this ) }
+          className={this.getTextareaCss()}
+          placeholder={this.placeholder}
+          onChange= {this.onChange?.bind( this ) }
+          onInput= {this.onInput?.bind( this ) }
           disabled={ this.state.disabled.value }>
           {this?.text}
         </textarea>
       );
     }
 
+    public addEvents(){
+      const self = this;
+      super.addEvents();
+      this.addEvent({
+        type: "input",
+        self: true,
+        callback: function(){
+          const node = this.node as HTMLTextAreaElement;
+          const text = node.value;
+          self.state.text.setter( text );
+        }
+      });
+    }
+
     public setText( text: string ): void{
       this.state.text.setter( text );
     }
 
-    protected getTextareaCss(): string{
-        let css = "";
+    public getText(){
+      return this.state.text.value;
+    }
 
-        if( this.className ) css = this.className;
-        else css = "borderSolid borderSmall textBorderColor borderRadiusSmall";
+    protected getTextareaCss(): string{
+        let css = "borderSolid borderSmall textBorderColor borderRadiusSmall";
+ 
+        if( this.className ) css += " " + this.className;
 
         if( this.state.disabled.value ) css += " disabled";
 
