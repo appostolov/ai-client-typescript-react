@@ -11,10 +11,8 @@ export default function Dialog(): Config{
     className: "absoluteFull centered paddingLarge smokeBackgroundColor",
     visible: false,
     states: COMP.STATES.BASE.concat([ "content" ]),
-    onInit: function(){
-      count++;
-    },
     setJSX: function(){
+      count++;
       return (
         <div ref={config.domRef} className={config.className}>
           <Node key={count} className={config.className} config={this.state.content.value}/>
