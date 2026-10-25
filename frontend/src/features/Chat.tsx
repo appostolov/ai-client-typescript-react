@@ -48,7 +48,7 @@ export default function History(): Config {
                         title: "Delete Chat Success",
                         message: "The chat was deleted successfully",
                         onClose: function(){
-                          debugger;
+                          window.location.hash = "";
                         }
                       }));
                     },
@@ -183,6 +183,7 @@ export default function History(): Config {
                       chat: id
                     },
                     success: function( data: Answer ){
+                      if( HashHelper.id() === "new" ) window.location.hash = "chat/" + data.chat;
                       chat.setBusy( false ); 
                       const messages = chat.getChild({ key: "messages" });
                       messages.messageAnswered( data );
