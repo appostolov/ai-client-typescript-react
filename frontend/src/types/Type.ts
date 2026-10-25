@@ -1,3 +1,5 @@
+import type { Answer } from "../types/Chat"
+
 export interface HashHelper {
   routes: string[]
   route( def?: string ): string | undefined
@@ -7,4 +9,5 @@ export interface HashHelper {
 export interface DataHelper {
   deleteAll(): void
   delete( id: string ): void
+  answer( answer: Answer ): void
 }

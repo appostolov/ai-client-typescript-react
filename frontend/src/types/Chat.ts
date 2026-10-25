@@ -36,3 +36,8 @@ export type Chat = [ Request, Response ][]
 export interface ChatMap {
     [key: string]: Chat;
 }
+
+export interface Answer {
+    chat: string;
+    message: [ Request, Response ]
+}
