@@ -1,26 +1,32 @@
 import { Request, Response } from 'express';
 import { Helper } from "../data/helper";
-import { ChatMap } from "../type/chat";
+import { ChatMap, Chat, ChatSelect } from "../type/chat";
 
 module.exports = {
 
     select: async function( request: Request, response: Response ){
 
         const data: ChatMap = await Helper.read();
-        const result: ChatMap = {};
+        const chats: Chat[] = Object.values( data );
+        chats.reverse();
 
-        const ids: string[] = Object.keys( data );
-        for (const [index, id] of ids.entries()) {
-            if( request.body.offset && index < request.body.offset ) continue;
-            if( request.body.limit ){
-                const offset: number = request.body.offset || 0;
-                if( index >= offset + request.body.limit ) break;
-            }
-            if( request.body.id && request.body.id !== id ) continue;
+        let result: ChatSelect[] = [];
 
-            result[id] = data[id];
+        const offset = request.body.offset || 0;
+        const limit = Math.min( request.body.limit, 20 );
+        for( let i = offset; i < ( offset + limit ); i++ ){
+            if( i >= chats.length ) break;
+            const chat = chats[i];
+            const id = chat[0][1].id;
+            const message = chat[0][1].choices[0].message.content;
+            result.push({
+                id: id,
+                message: message
+            });
         }
-        response.status(200).json(result);
+        response.status(200).json({
+            chats: result
+        });
     },
 
     delete: async function( request: Request, response: Response ){

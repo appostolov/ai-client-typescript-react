@@ -55,3 +55,8 @@ export const ChatMapSchema = z.record(z.string().startsWith('gen-'), ChatSchema)
 export type ChatMap = {
   [id: string]: Chat;
 };
+
+export interface ChatSelect {
+  id: string;
+  message: string | null;
+}

@@ -8,7 +8,6 @@ module.exports = {
 
         try{
             const schema = z.object({
-                id: z.string().startsWith('gen-').optional(),
                 offset: z.number().int().nonnegative().optional(),
                 limit: z.number().int().positive().optional()
             });

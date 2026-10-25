@@ -80,6 +80,7 @@ export default function History(): Config {
             this.state.messages.setter( [] );
             return;
           }
+          this.setBusy( true );
           this.request({
             url: "http://localhost:5000/message/select",
             data: {
@@ -88,6 +89,7 @@ export default function History(): Config {
               offset: offset || 0
             },
             success: function( data: MessageSelect ){
+              this.setBusy( false );
               let messages;
               if( offset ){
                 messages = this.state.messages.value.concat( data.messages )
@@ -97,6 +99,7 @@ export default function History(): Config {
               this.state.messages.setter( messages );
             },
             error: function( data: any ){
+              this.setBusy( false );
               this.openDialog(Standard({
                 type: COMP.DIALOG.TYPE.ERROR,
                 title: "Message Select Failed",

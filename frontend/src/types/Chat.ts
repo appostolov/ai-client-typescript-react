@@ -1,47 +1,56 @@
 export interface Message {
-    role: 'user' | 'assistant' | 'system',
+    role: 'user' | 'assistant' | 'system'
     content: string | null
 }
 
 export interface Choice {
-    index: number,
-    message: Message,
+    index: number
+    message: Message
     finish_reason: string
 }
 
 export interface Usage {
-    prompt_tokens: number,
-    completion_tokens: number,
+    prompt_tokens: number
+    completion_tokens: number
     total_tokens: number
 }
 
 export interface Request {
-    model: string, 
-    messages: Message[],
-    temperature: number,
+    model: string
+    messages: Message[]
+    temperature: number
     max_tokens: number
 }
 
 export interface Response {
-    id: string,
-    object: "chat.completion", 
-    created: number,
-    model: string,
-    choices: Choice[],
+    id: string
+    object: "chat.completion",
+    created: number
+    model: string
+    choices: Choice[]
     usage?: Usage
 }
 
 export type Chat = [ Request, Response ][]
 
 export interface ChatMap {
-    [key: string]: Chat;
+    [key: string]: Chat
 }
 
 export interface Answer {
-    chat: string;
+    chat: string
     message: [ Request, Response ]
 }
 
 export interface MessageSelect {
     messages: Message[]
+}
+
+export interface ChatItem {
+    id: string
+    message: string | null
+}
+
+export interface ChatSelect {
+    chats: ChatItem[]
 }
