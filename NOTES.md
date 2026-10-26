@@ -239,3 +239,10 @@ module.exports = {
 import '@testing-library/jest-dom';
 ```
 
+# Extend central package.json setup
+* Added scripts to run tests in root `package.json`
+```
+    "test:backend": "npm test --workspace=backend",
+    "test:frontend": "npm test --workspace=frontend",
+    "test:all": "npm run test:backend && npm run test:frontend"
+```
