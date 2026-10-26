@@ -7,13 +7,14 @@ export const Helper = {
     data: {} as ChatMap,
     read: async function(): Promise<ChatMap> {
         const file: string = path.join(__dirname, 'data.json');
-        const text: string = await readFile(file, 'utf-8');
         let data: ChatMap;
+        let text: string
         try{
+            text = await readFile(file, 'utf-8');
             data = ChatMapSchema.parse( JSON.parse( text ) );
         }
         catch( ex ){
-            throw new Error("Invalid data");
+            data = {};
         }
         this.data = data;
         return this.data;
