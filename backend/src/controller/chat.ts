@@ -18,7 +18,7 @@ module.exports = {
             if( i >= chats.length ) break;
             const chat = chats[i];
             const id = chat[0][1].id;
-            const message = chat[0][1].choices[0].message.content;
+            const message = chat[0][0].messages[0].content;
             result.push({
                 id: id,
                 message: message
