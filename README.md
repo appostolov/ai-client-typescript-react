@@ -1,4 +1,4 @@
-# AI Chat Manager (TypeScript & React & Node.js/Express)
+# AI Chat Manager (TypeScript & React)
 
 The essence of this project is a **Framework built on top of React** dedicated to creation of massive structures of interconected functionalities. An app in the Framework is a tree of Nodes capable of handling states, effects, events, views, as well as finding other Nodes and sync with their state and actions.
 
