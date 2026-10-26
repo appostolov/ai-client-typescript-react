@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../index'; // Your Express app instance
+import app from '../app'; // Your Express app instance
 
 describe('POST /chat/select', () => {
   it('should return an error and status 400', async () => {
