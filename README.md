@@ -11,13 +11,18 @@ Raw creation journey thoughts can be found in `NOTES.md`
 1. Clone the repo
 ```bash
 git clone https://github.com/appostolov/ai-client-typescript-react.git
+cd ai-client-typescript-react
 ```
 2. Install dependencies
 ```bash
 npm install
 ```
-3. Get OpenRouter API Key `https://developer.puter.com/tutorials/how-to-get-openrouter-api-key/`
-4. Paste the Key at `backend/.env` file `OPENROUTER_API_KEY` property
+3. Get OpenRouter API Key ([See How](https://developer.puter.com/tutorials/how-to-get-openrouter-api-key/))
+4. Create `backend/.env` file and paste API Key as `OPENROUTER_API_KEY` value
+```ini
+OPENROUTER_API_KEY=paste_API_Key_here
+PORT=5000
+```
 5. Run the app
 ```bash
 npm run dev
