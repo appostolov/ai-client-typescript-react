@@ -227,3 +227,15 @@ module.exports = {
 * Add `"types": ["jest", "node"]` to `tsconfig.json`
 * Run the tests from backend folder `npm test`
 
+# Test for the Frontend
+* `cd frontend`
+* `npm install --save-dev vitest jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event`
+* Add `"test": "vitest"` in package.json scripts
+* Add `"types": ["vitest/globals", "@testing-library/jest-dom"]` to `frontend/tsconfig.json`
+* Run with `npm test`
+* `npm install --save-dev jsdom`
+* Created frontend/src/setupTests.ts file
+```
+import '@testing-library/jest-dom';
+```
+
