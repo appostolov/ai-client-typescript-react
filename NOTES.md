@@ -207,3 +207,23 @@ app.use(cors({
 # I have pretty functional chat alsready in frontend/src/features/Chat
 * what I need now is some busy indication
 * I will implement busy indication fo the Base
+
+# Time for Tests
+* Gemini suggests Jest + Supertest for the BE and Vitest for the FE
+* They look good so I will use them
+
+# Install Jest + Supertest
+* `npm install --save-dev jest ts-jest @types/jest supertest @types/supertest ts-node`
+* jest.config.js created in /backend
+```
+module.exports = {
+  preset: 'ts-jest',
+  testEnvironment: 'node', // Crucial: sets the environment to Node
+  testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
+};
+```
+* Created backend/src/__tests__/app.test.ts file
+* Run `npm install --save-dev @types/jest --prefix backend`
+* Add `"types": ["jest", "node"]` to `tsconfig.json`
+* Run the tests from backend folder `npm test`
+
