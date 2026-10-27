@@ -1,6 +1,6 @@
 # AI Chat Manager (TypeScript & React)
 
-The essence of this project is a **Framework built on top of React** dedicated to creation of massive structures of interconected functionalities. An app in the Framework is a tree of Nodes capable of handling states, effects, events, views, as well as finding other Nodes and sync with their state and actions.
+The essence of this project is a **Framework built on top of React** dedicated to creation of massive structures of interconnected functionalities. An app in the Framework is a tree of Nodes capable of handling states, effects, events, views, as well as finding other Nodes and sync with their state and actions.
 
 The current example is **AI Chat Manager** where the user starts, chats and delete conversations with AI models via OpenAI Open Router API.
 The FE located at `/frontend/src/features` is implemented in under **600 lines of code** using the Framework.
